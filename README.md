@@ -1,2 +1,4 @@
 # mod_gladiators_arena
-A new mod for dota 2
+
+v0.1
+Implementing basic abilities for warrior class.
