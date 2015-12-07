@@ -156,7 +156,7 @@
     "AbilityTextureName"            "rubick_empty1"
   }
 
-  "warrior_charge"
+   "warrior_charge"
   {
       "BaseClass"                     "ability_datadriven"
       "AbilityTextureName"            "axe_berserkers_call"
@@ -170,7 +170,7 @@
   
       "AbilityCastRange"              "1800"
       "AbilityCastPoint"              "0.0"
-      "AbilityCooldown"               "20.0"
+      "AbilityCooldown"               "1.0"
   
       "AbilityManaCost"               "25"
   
@@ -179,16 +179,35 @@
           "01"
           {
               "var_type"                            "FIELD_INTEGER"
-              "movement_speed_bonus"                "300"
+              "movement_speed_bonus"                "11000"
           }
+          "02"
+          {
+              "var_type"                            "FIELD_INTEGER"
+              "stun_radius"                          "100"
+          }
+          "03"
+          {
+              "var_type"                            "FIELD_INTEGER"
+              "stun_duration"                       "3"
+          }
+
       }
   
       "OnSpellStart"
       {
-          "RunScript"
+
+
+         "ApplyModifier"
           {
+            "ModifierName" "modifier_warrior_charge_travel"
+            "Target" "CASTER"
+          }
+
+          "RunScript"
+           {
               "ScriptFile"    "abilities/warrior/warrior_charge.lua"
-              "Function"      "chargeEnemy"
+              "Function"      "WarriorChargeToTarget"
           }
       }
   
@@ -197,23 +216,43 @@
           "modifier_warrior_charge_travel"
           {
               "IsHidden"      "1"
-              "statusEffectName" "status_effect_gods_strength"
+              "IsPassive"     "1"
+              "statusEffectName" "particles/status_fx/status_effect_gods_strength.vpcf"
               "StatusEffectPriority" "1"
 
-                  "Properties"
-                {
-                    "MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE" "%movement_speed_bonus" 
-                }
-
+                "States"
                 {
 
                     "MODIFIER_STATE_COMMAND_RESTRICTED" "MODIFIER_STATE_VALUE_ENABLED"
                     "MODIFIER_STATE_INVULNERABLE" "MODIFIER_STATE_VALUE_ENABLED"
                     "MODIFIER_STATE_NO_UNIT_COLLISION" "MODIFIER_STATE_VALUE_ENABLED"
-                }
+                }                                      
+
+          }
+
+          "modifier_warrior_charge_stun"
+          {
+             
+             "Duration" "%stun_duration"             
+             
+             "OnCreated"
+            {
+              "AttachEffect"
+              {
+                "EffectName" "particles/generic_gameplay/generic_stunned.vpcf"
+                "EffectAttachType" "follow_overhead"
+                "Target"            "TARGET"
+
+              }
+            }
+
+            "States"
+            {
+              "MODIFIER_STATE_STUNNED" "MODIFIER_STATE_VALUE_ENABLED"
+            }
+
           }
       }
-  }
+    }
 
 }
-

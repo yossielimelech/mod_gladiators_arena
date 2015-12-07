@@ -1,6 +1,6 @@
 "DOTAHeroes"
 {
-  "warrior"
+  "npc_dota_hero_axe"
   {
     "AbilityLayout"     		"6"
     "override_hero"     		"models/heroes/axe/axe.vmdl"

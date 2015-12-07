@@ -90,6 +90,7 @@ function GameMode:OnHeroInGame(hero)
   local item = CreateItem("item_example_item", hero, hero)
   hero:AddItem(item)
 
+
   --[[ --These lines if uncommented will replace the W ability of any hero that loads into the game
     --with the "example_ability" ability
 
@@ -105,6 +106,13 @@ end
 ]]
 function GameMode:OnGameInProgress()
   DebugPrint("[BAREBONES] The game has officially begun")
+
+
+  local spawnEnt = Entities:FindByName(nil, "spawn_dummy_target")
+  local position = spawnEnt:GetAbsOrigin()
+  local boss = CreateUnitByName("npc_dota_hero_enigma", position, true, nil, nil, DOTA_TEAM_NEUTRALS)
+
+  local boss = CreateUnitByName("npc_dota_hero_sven", position, true, nil, nil, DOTA_TEAM_NEUTRALS)
 
   Timers:CreateTimer(30, -- Start this timer 30 game-time seconds later
     function()
