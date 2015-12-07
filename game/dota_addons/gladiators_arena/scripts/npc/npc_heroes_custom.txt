@@ -16,16 +16,16 @@
     "ArmorPhysical"       		"250"                 // Physical protection.
     "MagicalResistance"       	"75"                 // Magical protection (percentage).
 
-    "AttackCapabilities"    	"DOTA_UNIT_CAP_NO_ATTACK"
+    "AttackCapabilities"    	"DOTA_UNIT_CAP_MELEE_ATTACK"
     "AttackDamageMin"     		"175"                   // Damage range min.
     "AttackDamageMax"     		"215"                   // Damage range max.
 
     //"AttributePrimary"      	"DOTA_ATTRIBUTE_STRENGTH"
     "AttributeBaseStrength"   	"50"                   // Base strength
     "AttributeStrengthGain"   	"0"                   // Strength bonus per level.
-    "AttributeBaseIntelligence" "0"                   // Base intelligence
+    "AttributeBaseIntelligence" "1"                   // Base intelligence
     "AttributeIntelligenceGain" "0"                   // Intelligence bonus per level.
-    "AttributeBaseAgility"    	"0"                   // Base agility
+    "AttributeBaseAgility"    	"10"                   // Base agility
     "AttributeAgilityGain"    	"0"                   // Agility bonus per level.
 
     "BountyXP"          		"0"                 // Experience earn.
@@ -39,10 +39,10 @@
     "MovementSpeed"			  	"360"                 // Speed.
     "MovementTurnRate"			"1.0"                 // Turning rate.
 
-    "StatusHealth"        		"10000"                 // Base health.
+    "StatusHealth"        		"5000"                 // Base health.
     "StatusHealthRegen"     	"50.0"                 // Health regeneration rate.
     "StatusMana"        		"400"                   // Base mana.
-    "StatusManaRegen"     		"100.0"                 // Mana regeneration rate.
+    "StatusManaRegen"     		"10.0"                 // Mana regeneration rate.
 
     "VisionDaytimeRange"    	"1800"                  // Range of vision at night time.
     "VisionNighttimeRange"    	"1800"                  // Range of vision at night time.

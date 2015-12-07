@@ -1,0 +1,45 @@
+  "warrior_charge"
+  {
+    "BaseClass"                     "ability_lua"
+    "ScriptFile"                    "abilities\warrior\warrior_charge.lua"
+    "AbilityTextureName"            "axe_berserkers_call"
+    "MaxLevel"                      "1"
+
+    "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+    "AbilityUnitTargetTeam"         "DOTA_UNIT_TARGET_TEAM_ENEMY"
+    "AbilityUnitTargetType"         "DOTA_UNIT_TARGET_HERO"
+    "AbilityUnitDamageType"         "DAMAGE_TYPE_PHYSICAL"
+    "AbilityCastAnimation"          "ACT_DOTA_CAST_ABILITY_1"
+
+    "AbilityCastRange"              "1200"
+    "AbilityCastPoint"              "0.0"
+    "AbilityCooldown"               "1.0"
+    "AbilityManaCost"               "25"
+
+
+    "precache"
+    {
+      "particle"  "particles/status_fx/status_effect_gods_strength.vpcf"
+      "particle"  "particles/generic_gameplay/generic_stunned.vpcf"
+    } 
+
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"                            "FIELD_INTEGER"
+        "stun_duration"                       "1"
+      }
+      "02"
+      {
+        "var_type"                            "FIELD_INTEGER"
+        "charge_movespeed"                    "1550"
+      }
+      "03"
+      {
+        "var_type"                            "FIELD_INTEGER"
+        "lookup_radius"                       "100"
+      }
+
+    }
+  }

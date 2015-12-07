@@ -1,30 +1,49 @@
-function WarriorChargeToTarget(event)
-	LinkLuaModifier("modifier_movespeed_cap", "libraries/modifiers/modifier_movespeed_cap", LUA_MODIFIER_MOTION_NONE)
-	local caster = event.caster
-	local target = event.target
-	local ability = event.ability
-	local stun_radius = ability:GetLevelSpecialValueFor("stun_radius", 1)
-	
+LinkLuaModifier("modifier_warrior_charge_travel", "abilities/warrior/modifiers/modifier_warrior_charge_travel", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_warrior_charge_stun", "abilities/warrior/modifiers/modifier_warrior_charge_stun", LUA_MODIFIER_MOTION_NONE)
 
-	caster:AddNewModifier(caster,nil, "modifier_movespeed_cap", {})
+warrior_charge = class({})
+
+function warrior_charge:OnSpellStart()
+	local ability = self
+	local caster = ability:GetCaster()
+	local target = ability:GetCursorTarget()
+
+	local lookup_radius = ability:GetSpecialValueFor("lookup_radius")
+	local stun_duratioin = ability:GetSpecialValueFor("stun_duration") 
+	
+	ApplyUnitModifier(caster,nil, 	"modifier_movespeed_cap", {})
+	caster:AddNewModifier(caster, 	nil, "modifier_warrior_charge_travel",{})
+	target:AddNewModifier(caster, nil, "modifier_warrior_charge_stun", {duration = stun_duratioin })
 	caster:MoveToNPC(target)
 
-	Timers:CreateTimer(0.1, function()
-		print("[warrior_charge] inside timer")
-		local units = FindUnitsInRadius( target:GetTeamNumber() , caster:GetAbsOrigin(), nil, stun_radius ,DOTA_UNIT_TARGET_TEAM_FRIENDLY,  DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_NONE, FIND_ANY_ORDER, false)
+	Timers:CreateTimer(0.03, function()
+		local surrounding_units = FindUnitsInRadius( target:GetTeamNumber() , caster:GetAbsOrigin(), nil, lookup_radius ,DOTA_UNIT_TARGET_TEAM_FRIENDLY,  DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_NONE, FIND_ANY_ORDER, false)
 
-		for k,v in pairs(units) do
+		for k,v in pairs(surrounding_units) do
 			if v == target then
-			print("found him!")
-			caster:RemoveModifierByName("modifier_warrior_charge_travel")
-			caster:RemoveModifierByName("modifier_movespeed_cap")
-			ability:ApplyDataDrivenModifier(caster, target, "modifier_warrior_charge_stun", {})
-			return nil
-		end
-		end
-
-
-		return 0.1
+				caster:RemoveModifierByName("modifier_warrior_charge_travel")
+				return nil
+			end
+		end    
+		return 0.03
 		end)
+end
 
+
+function warrior_charge:CastFilterResultTarget( hTarget )
+	
+	local ability = self
+	local caster = ability:GetCaster()
+
+
+	if caster:HasModifier("modifier_in_combat_flag") then
+		print('yeay i found flag')
+		return UF_FAIL_CUSTOM
+	end
+
+	return UF_SUCCESS
+end
+
+function warrior_charge:GetCustomCastErrorTarget( hTarget )
+ 	return "#dota_hud_error_cant_cast_while_in_combat"
 end

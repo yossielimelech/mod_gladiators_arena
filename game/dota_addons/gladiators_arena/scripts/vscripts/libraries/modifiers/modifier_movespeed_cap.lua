@@ -17,10 +17,6 @@ function modifier_movespeed_cap:GetModifierMoveSpeed_Limit( params )
     return 2000
 end
 
-function modifier_movespeed_cap:GetModifierMoveSpeedOverride( params )
-	return 2000
-end
-
 function modifier_movespeed_cap:IsHidden()
     return true
 end

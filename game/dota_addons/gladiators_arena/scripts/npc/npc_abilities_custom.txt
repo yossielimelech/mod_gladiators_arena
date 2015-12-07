@@ -62,9 +62,9 @@
     "AbilityManaCost"       "0 0 0 0"
   }
   
-//-------------------
-// Dummy stuff
-//-------------------
+  //-------------------
+  // Dummy stuff
+  //-------------------
   
   "dummy_unit"
   {
@@ -77,15 +77,15 @@
     {
       "dummy_unit"
       {
-          "Passive"                        "1"
-          "IsHidden"                        "1"    
-          "States"
-          {
-              "MODIFIER_STATE_UNSELECTABLE" "MODIFIER_STATE_VALUE_ENABLED"
-              "MODIFIER_STATE_INVULNERABLE"    "MODIFIER_STATE_VALUE_ENABLED"
-              "MODIFIER_STATE_NOT_ON_MINIMAP" "MODIFIER_STATE_VALUE_ENABLED"
-              "MODIFIER_STATE_NO_HEALTH_BAR"  "MODIFIER_STATE_VALUE_ENABLED"
-          }
+        "Passive"                        "1"
+        "IsHidden"                        "1"    
+        "States"
+        {
+          "MODIFIER_STATE_UNSELECTABLE" "MODIFIER_STATE_VALUE_ENABLED"
+          "MODIFIER_STATE_INVULNERABLE"    "MODIFIER_STATE_VALUE_ENABLED"
+          "MODIFIER_STATE_NOT_ON_MINIMAP" "MODIFIER_STATE_VALUE_ENABLED"
+          "MODIFIER_STATE_NO_HEALTH_BAR"  "MODIFIER_STATE_VALUE_ENABLED"
+        }
       }
     }
   }
@@ -156,103 +156,49 @@
     "AbilityTextureName"            "rubick_empty1"
   }
 
-   "warrior_charge"
+  "warrior_charge"
   {
-      "BaseClass"                     "ability_datadriven"
-      "AbilityTextureName"            "axe_berserkers_call"
-      "MaxLevel"                      "1"
-  
-      "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
-      "AbilityUnitTargetTeam"         "DOTA_UNIT_TARGET_TEAM_ENEMY"
-      "AbilityUnitTargetType"         "DOTA_UNIT_TARGET_HERO"
-      "AbilityUnitDamageType"         "DAMAGE_TYPE_PHYSICAL"
-      "AbilityCastAnimation"          "ACT_DOTA_CAST_ABILITY_1"
-  
-      "AbilityCastRange"              "1800"
-      "AbilityCastPoint"              "0.0"
-      "AbilityCooldown"               "1.0"
-  
-      "AbilityManaCost"               "25"
-  
-      "AbilitySpecial"
+    "BaseClass"                     "ability_lua"
+    "ScriptFile"                    "abilities\warrior\warrior_charge.lua"
+    "AbilityTextureName"            "axe_berserkers_call"
+    "MaxLevel"                      "1"
+
+    "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+    "AbilityUnitTargetTeam"         "DOTA_UNIT_TARGET_TEAM_ENEMY"
+    "AbilityUnitTargetType"         "DOTA_UNIT_TARGET_HERO"
+    "AbilityCastAnimation"          "ACT_DOTA_CAST_ABILITY_1"
+
+    "AbilityCastRange"              "1200"
+    "AbilityCastPoint"              "0.0"
+    "AbilityCooldown"               "1.0"
+    "AbilityManaCost"               "25"
+
+
+    "precache"
+    {
+      "particle"  "particles/status_fx/status_effect_gods_strength.vpcf"
+      "particle"  "particles/generic_gameplay/generic_stunned.vpcf"
+    } 
+
+    "AbilitySpecial"
+    {
+      "01"
       {
-          "01"
-          {
-              "var_type"                            "FIELD_INTEGER"
-              "movement_speed_bonus"                "11000"
-          }
-          "02"
-          {
-              "var_type"                            "FIELD_INTEGER"
-              "stun_radius"                          "100"
-          }
-          "03"
-          {
-              "var_type"                            "FIELD_INTEGER"
-              "stun_duration"                       "3"
-          }
-
+        "var_type"                            "FIELD_INTEGER"
+        "stun_duration"                       "1"
       }
-  
-      "OnSpellStart"
+      "02"
       {
-
-
-         "ApplyModifier"
-          {
-            "ModifierName" "modifier_warrior_charge_travel"
-            "Target" "CASTER"
-          }
-
-          "RunScript"
-           {
-              "ScriptFile"    "abilities/warrior/warrior_charge.lua"
-              "Function"      "WarriorChargeToTarget"
-          }
+        "var_type"                            "FIELD_INTEGER"
+        "charge_movespeed"                    "1550"
       }
-  
-      "Modifiers"
+      "03"
       {
-          "modifier_warrior_charge_travel"
-          {
-              "IsHidden"      "1"
-              "IsPassive"     "1"
-              "statusEffectName" "particles/status_fx/status_effect_gods_strength.vpcf"
-              "StatusEffectPriority" "1"
-
-                "States"
-                {
-
-                    "MODIFIER_STATE_COMMAND_RESTRICTED" "MODIFIER_STATE_VALUE_ENABLED"
-                    "MODIFIER_STATE_INVULNERABLE" "MODIFIER_STATE_VALUE_ENABLED"
-                    "MODIFIER_STATE_NO_UNIT_COLLISION" "MODIFIER_STATE_VALUE_ENABLED"
-                }                                      
-
-          }
-
-          "modifier_warrior_charge_stun"
-          {
-             
-             "Duration" "%stun_duration"             
-             
-             "OnCreated"
-            {
-              "AttachEffect"
-              {
-                "EffectName" "particles/generic_gameplay/generic_stunned.vpcf"
-                "EffectAttachType" "follow_overhead"
-                "Target"            "TARGET"
-
-              }
-            }
-
-            "States"
-            {
-              "MODIFIER_STATE_STUNNED" "MODIFIER_STATE_VALUE_ENABLED"
-            }
-
-          }
+        "var_type"                            "FIELD_INTEGER"
+        "lookup_radius"                       "100"
       }
+
     }
+  }
 
 }

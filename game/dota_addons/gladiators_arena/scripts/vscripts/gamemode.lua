@@ -33,6 +33,9 @@ require('settings')
 -- events.lua is where you can specify the actions to be taken when any event occurs and is one of the core barebones files.
 require('events')
 
+-- general modifiers linkage
+require('libraries/unit_modificator')
+
 --[[
   This function should be used to set up Async precache calls at the beginning of the gameplay.
 

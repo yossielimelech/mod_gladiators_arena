@@ -37,8 +37,8 @@ end
 -- An entity somewhere has been hurt.  This event fires very often with many units so don't do too many expensive
 -- operations here
 function GameMode:OnEntityHurt(keys)
-  --DebugPrint("[BAREBONES] Entity Hurt")
-  --DebugPrintTable(keys)
+  -- DebugPrint("[BAREBONES] Entity Hurt")
+  -- DebugPrintTable(keys)
 
   local damagebits = keys.damagebits -- This might always be 0 and therefore useless
   if keys.entindex_attacker ~= nil and keys.entindex_killed ~= nil then
@@ -50,6 +50,10 @@ function GameMode:OnEntityHurt(keys)
 
     if keys.entindex_inflictor ~= nil then
       damagingAbility = EntIndexToHScript( keys.entindex_inflictor )
+    end
+   
+    if entVictim and not entVictim:HasModifier("modifier_in_combat_flag") then
+      ApplyUnitModifier(entVictim, nil, "modifier_in_combat_flag", {duration = 6})
     end
   end
 end
@@ -340,4 +344,10 @@ function GameMode:OnPlayerChat(keys)
   local playerID = self.vUserIds[userID]:GetPlayerID()
 
   local text = keys.text
+end
+
+-- This function is called whenever any player gets hurt
+function GameMode:On_player_hurt (data)
+  print("[BAREBONES] player_hurt")
+  PrintTable(data)
 end
